@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CMspringbootApplication {
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CMspringbootApplication.class, args);
-	}
+        SpringApplication.run(CMspringbootApplication.class, args);
+    }
 
 }

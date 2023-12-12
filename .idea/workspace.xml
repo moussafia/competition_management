@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="94aa1300-16e3-4fc4-9381-83e63b8183fe" name="Changes" comment="" />
+    <list default="true" id="94aa1300-16e3-4fc4-9381-83e63b8183fe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/model/domain/Competition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/model/domain/Fish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/model/domain/Hunting.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/model/domain/IdentityDocumentType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/model/domain/Level.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/model/domain/Member.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/model/domain/Ranking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMspringboot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CMspringboot/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/CMspringbootApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/CMspringbootApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/ServletInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CMspringboot/src/main/java/ma/youcode/cmspringboot/ServletInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMspringboot/src/test/java/ma/youcode/cmspringboot/CMspringbootApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/CMspringboot/src/test/java/ma/youcode/cmspringboot/CMspringbootApplicationTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,9 +29,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2ZOBOFzHcWFD5ckYpvSqw3DAHYa" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,6 +43,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -39,6 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1702283214823</updated>
       <workItem from="1702283219323" duration="275000" />
+      <workItem from="1702288280532" duration="452000" />
     </task>
     <servers />
   </component>

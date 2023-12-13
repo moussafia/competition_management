@@ -1,12 +1,12 @@
 package ma.youcode.cmspringboot.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Entity
@@ -16,13 +16,12 @@ import java.util.Set;
 @AllArgsConstructor
 public class Competition {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String code;
     private LocalDate date;
-    private LocalDateTime startDate;
-    private LocalDateTime endTime;
+    private LocalTime startDate;
+    private LocalTime endTime;
     private Integer numberOfParticipants;
+    @Size(min = 3, max = 200, message = "length is too low or too height")
     private String location;
     private Float amount;
     @OneToMany(mappedBy = "competition")

@@ -1,7 +1,7 @@
 package ma.youcode.cmspringboot.web.controller;
 
 import ma.youcode.cmspringboot.model.domain.Competition;
-import ma.youcode.cmspringboot.model.dto.competitionDto.CompetitionRequestDto;
+import ma.youcode.cmspringboot.model.dto.competitionDto.competionSaveDto.CompetitionRequestCreateDto;
 import ma.youcode.cmspringboot.model.dto.competitionDto.CompetitionResponseDto;
 import ma.youcode.cmspringboot.model.mapper.competionDtoMapper.CompetitionDtoMapper;
 import ma.youcode.cmspringboot.service.CompetitionService;
@@ -48,8 +48,8 @@ public class CompetitionController {
     }
     @PostMapping
     public ResponseEntity<CompetitionResponseDto> saveCompetition(@RequestBody
-                                                                  CompetitionRequestDto competitionRequestDto){
-        Competition competitionMapped = CompetitionDtoMapper.toCompetition(competitionRequestDto);
+                                                                  CompetitionRequestCreateDto competitionRequestCreateDto){
+        Competition competitionMapped = CompetitionDtoMapper.toCompetition(competitionRequestCreateDto);
         Competition competitionSaved = competitionService.createCompetition(competitionMapped);
     return ResponseEntity.status(HttpStatus.CREATED)
             .body(CompetitionDtoMapper.toCompetitionResponseDto(competitionSaved));

@@ -23,11 +23,11 @@ public class LevelSeederImpl implements LevelSeeder {
 
     @Override
     public List<Level> saveLevel(){
-        Level level1 = new Level().builder().code(1).description("Easy").points(3).build();
-        Level level2 = new Level().builder().code(2).description("Fairly easy").points(5).build();
-        Level level3 = new Level().builder().code(3).description("Moderate").points(7).build();
-        Level level4 = new Level().builder().code(4).description("Fairly difficult").points(11).build();
-        Level level5 = new Level().builder().code(5).description("Difficult ").points(13).build();
+        Level level1 = new Level().builder().description("Easy").points(3).build();
+        Level level2 = new Level().builder().description("Fairly easy").points(5).build();
+        Level level3 = new Level().builder().description("Moderate").points(7).build();
+        Level level4 = new Level().builder().description("Fairly difficult").points(11).build();
+        Level level5 = new Level().builder().description("Difficult ").points(13).build();
         List<Level> levelList = List.of(level1, level2, level3, level4, level5);
         List<Level> levelResult= new ArrayList<>();
         levelList.forEach(l -> levelResult.add(this.levelRepository.save(l)));

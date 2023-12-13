@@ -9,5 +9,6 @@ public interface LevelService {
     Level createLevel(Level level);
     List<Level> getLevels();
     Optional<Level> searchLevel(Integer code);
-
+    Level updateLevel(Level level);
+    Level getLevelByCode(Level level);
 }

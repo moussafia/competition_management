@@ -29,9 +29,9 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Competition getCompetitionByCode(Competition competition) {
-        return competitionRepository.findByCode(competition.getCode())
-                .orElseThrow(() -> new IllegalStateException("Competition with code " + competition.getCode() + " not found"));
+    public Competition getCompetitionByCode(String competitionCode) {
+        return competitionRepository.findByCode(competitionCode)
+                .orElseThrow(() -> new IllegalStateException("Competition with code " + competitionCode + " not found"));
 
     }
 

@@ -35,7 +35,7 @@ public class CompetitionSeederImpl implements CompetitionSeeder {
         competitionList.add(new Competition().builder().amount((float) (Math.random()*300)).code("ims-19-12-23").location("Dakhla").date(LocalDate.of(2023, 12, 19)).startDate(LocalTime.of( 8, 0)).endTime(LocalTime.of(20, 0)).build());
         competitionList.add(new Competition().builder().amount((float) (Math.random()*300)).code("ims-20-12-23").location("casablanca").date(LocalDate.of(2023, 12, 20)).startDate(LocalTime.of( 8, 0)).endTime(LocalTime.of(20, 0)).build());
 
-        competitionList.forEach(c -> competitionRepository.save(c));
+        competitionRepository.saveAll(competitionList);
 
     }
 }

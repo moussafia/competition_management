@@ -2,6 +2,7 @@ package ma.youcode.cmspringboot.service;
 
 import ma.youcode.cmspringboot.model.domain.Competition;
 import ma.youcode.cmspringboot.model.domain.Hunting;
+import ma.youcode.cmspringboot.model.domain.Ranking;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,5 +16,6 @@ public interface HuntingService {
     Hunting isHuntingExist(Hunting hunting);
     Optional<Hunting> findByMemberAndFishAndCompetition(Hunting hunting);
     List<Hunting> getAllHuntingOfCompetition(Competition competition);
+    Ranking InsertScoreForMemberInCompetition(Hunting hunting);
 
 }

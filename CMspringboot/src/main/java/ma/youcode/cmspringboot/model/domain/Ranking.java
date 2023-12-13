@@ -14,7 +14,7 @@ public class Ranking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer ranke;
+    private Integer rank;
     private Integer score;
     @ManyToOne
     @JsonBackReference

@@ -47,9 +47,6 @@ public class FishSeederImpl implements FishSeeder {
         fishList.add(Fish.builder().name("Shark").averageWeight(50.0f).level(levelSet.get(4)).build());
         fishList.add(Fish.builder().name("Eel").averageWeight(2.0f).level(levelSet.get(1)).build());
 
-        List<Fish> fishResultList = new ArrayList<>();
-        fishList.forEach(f -> fishResultList.add(fishRepository.save(f)));
-
-        return fishResultList;
+        return fishRepository.saveAll(fishList);
     }
 }

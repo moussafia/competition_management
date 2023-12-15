@@ -29,9 +29,9 @@ public class CompetitionController {
     @GetMapping
     public ResponseEntity<List<CompetitionResponseDto>> getAllCompetition(@RequestParam(defaultValue = "0")
                                                                           @Valid @Min(0) Integer page,
-                                                                          @RequestParam @Min(1) Integer size,
+                                                                          @RequestParam(defaultValue = "9") @Min(1) Integer size,
                                                                           @RequestParam(defaultValue = "asc") @Pattern(regexp = "asc|desc" ,message = "invalid direction") String directionSort,
-                                                                          @RequestParam(defaultValue = "amount") String properties){
+                                                                          @RequestParam(defaultValue = "date") String properties){
         Sort.Direction direction = Sort.Direction.fromString(directionSort);
         Sort sort = Sort.by(direction, properties);
         PageRequest pageRequest = PageRequest.of(page, size, sort);

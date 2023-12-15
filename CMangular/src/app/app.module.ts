@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CompetitionModule } from './competition/competition.module';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,9 +14,12 @@ import { CompetitionModule } from './competition/competition.module';
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     SharedModule,
-    CompetitionModule
+    CompetitionModule,
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

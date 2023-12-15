@@ -5,14 +5,14 @@
    </a>
    <div class="p-5">
        <a href="#">
-           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">code </h5>
+           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{competitionList?.code}} </h5>
        </a>
        <div class="flex justify-between space-x-2 my-6">
-           <p class="category bg-gray-500 text-white py-1 px-1.5 text-center rounded-lg text-bold">#30</p>
-           <p class="manufacturer text-gray-500 underline py-1 px-1.5 text-center rounded-lg text-bold">Marrakech</p>
+           <p class="category bg-gray-500 text-white py-1 px-1.5 text-center rounded-lg text-bold">#{{competitionList?.date}}</p>
+           <p class="manufacturer text-gray-500 underline py-1 px-1.5 text-center rounded-lg text-bold">{{competitionList?.location}}</p>
        </div>
-       <p class="font-bold pricePerDay my-6"><span class="underline">Price :</span> 4040 DH</p>
-       <p class="quantity text-center text-white font-md text-lg absolute top-3 right-2 shadow-md px-3 rounded-lg ">place: 40</p>
+       <p class="font-bold pricePerDay my-6"><span class="underline">Price :</span> {{competitionList?.amount}} DH</p>
+       <p class="quantity text-center text-white font-md text-lg absolute top-3 right-2 shadow-md px-3 rounded-lg ">place: {{competitionList?.numberOfParticipants}}</p>
        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           go here
            <svg class="rtl:rotate-180 w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

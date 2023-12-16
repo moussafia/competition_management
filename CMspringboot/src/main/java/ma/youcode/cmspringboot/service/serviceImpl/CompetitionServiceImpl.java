@@ -47,6 +47,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public Page<Competition> getAllCompetition(Pageable pageable) {
+
         return competitionRepository.findAll(pageable);
     }
 

@@ -22,7 +22,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+  
   ],
   exports: [
     CompetitionListComponent,
@@ -30,7 +30,7 @@ import { RouterModule } from '@angular/router';
     CardComponent,
     CommonModule,
     CompetitionPageComponent,
-    PaginationComponent,
+    PaginationComponent
 
   ]
 })

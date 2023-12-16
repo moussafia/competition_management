@@ -21,6 +21,10 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
 
   ],
+  exports:[
+    RouterModule,
+    AppRoutingModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

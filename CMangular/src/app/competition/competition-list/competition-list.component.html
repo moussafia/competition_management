@@ -26,7 +26,10 @@
           </div>
     </ng-container>
     <div class="flex justify-center mb-4" style="margin-top:30px" *ngIf="result.dataCompetition"> 
-        <app-pagination></app-pagination>
+        <app-pagination 
+        [pageTotal] = "pageTotal" 
+        [currentPage]="currentPage"
+        (eventEmitter)="getCurrentPage($event)"></app-pagination>
     </div>
 </ng-container>
 

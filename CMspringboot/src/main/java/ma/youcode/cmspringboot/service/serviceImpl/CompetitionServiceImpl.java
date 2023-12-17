@@ -1,6 +1,7 @@
 package ma.youcode.cmspringboot.service.serviceImpl;
 
 import ma.youcode.cmspringboot.model.domain.Competition;
+import ma.youcode.cmspringboot.model.domain.CompetitionStatus;
 import ma.youcode.cmspringboot.repository.CompetitionRepository;
 import ma.youcode.cmspringboot.service.CompetitionService;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         validateDateCompetition(competition);
         validateDateAlreadyExistForCreate(competition);
         competition.setCode(generateCode(competition));
+        competition.setCompetitionStatus(CompetitionStatus.PENDING);
         return this.competitionRepository.save(competition);
     }
 
@@ -54,9 +56,18 @@ public class CompetitionServiceImpl implements CompetitionService {
     String generateCode(Competition competition){
         StringBuilder code = new StringBuilder();
         String threeLetter = competition.getLocation().substring(0,3);
-        return code.append(threeLetter).append("-").append(competition.getDate()).toString();
+        String yearFormat= String.valueOf(competition.getDate().getYear()).substring(2);
+        String dayFormat = String.valueOf(competition.getDate()).substring(8);
+        String monthFormat = String.valueOf(competition.getDate()).substring(5,7);
+        return code.append(threeLetter)
+                .append("-")
+                .append(dayFormat)
+                .append("-")
+                .append(monthFormat)
+                .append("-")
+                .append(yearFormat)
+                .toString();
     }
-
     void validateDateCompetition(Competition competition){
         if(competition.getDate().isBefore(LocalDate.now()))
             throw new IllegalStateException("Competition start date should be at least 24 hours from now");

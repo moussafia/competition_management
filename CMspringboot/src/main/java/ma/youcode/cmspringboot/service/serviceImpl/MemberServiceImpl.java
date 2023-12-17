@@ -37,13 +37,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member searchMember(String keySearch) {
-        if(keySearch.matches("\\d+"))
-            return memberRepository.findByNumOrNameOrFamilyName(Integer.valueOf(keySearch), "", "")
-                    .orElseThrow(() -> new IllegalStateException("Member with number " + keySearch + " not found"));
-        else
-            return memberRepository.findByNumOrNameOrFamilyName(null, keySearch, keySearch)
-                    .orElseThrow(() -> new IllegalStateException("Member with name or family name " + keySearch + " not found"));
+    public Page<Member> searchMember(String keySearch, Pageable pageable) {
+        return memberRepository.searchMember(keySearch, pageable)
+                .orElseThrow(() -> new IllegalStateException("Member with name or family name or num " + keySearch + " not found"));
     }
 
     @Override

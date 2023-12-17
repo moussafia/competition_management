@@ -1,9 +1,8 @@
 package ma.youcode.cmspringboot.web.controller;
 
 import ma.youcode.cmspringboot.model.domain.Competition;
-import ma.youcode.cmspringboot.model.dto.competitionDto.competionSaveDto.CompetitionRequestCreateDto;
+import ma.youcode.cmspringboot.model.dto.competitionDto.competionSaveDto.CompetitionSaveDto;
 import ma.youcode.cmspringboot.model.dto.competitionDto.CompetitionResponseDto;
-import ma.youcode.cmspringboot.model.mapper.competionDtoMapper.CompetitionDtoMapper;
 import ma.youcode.cmspringboot.service.CompetitionService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -38,7 +37,7 @@ public class CompetitionController {
         Page<Competition> competitionPage = competitionService.getAllCompetition(pageRequest);
         List<CompetitionResponseDto> competitionResponseDtoList = new ArrayList<>();
         competitionPage.forEach(cp->{
-            competitionResponseDtoList.add(CompetitionDtoMapper.toCompetitionResponseDto(cp));
+            competitionResponseDtoList.add(CompetitionResponseDto.toCompetitionResponseDto(cp));
         });
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("X-Total-Page", String.valueOf(competitionPage.getTotalPages()))
@@ -48,10 +47,10 @@ public class CompetitionController {
     }
     @PostMapping
     public ResponseEntity<CompetitionResponseDto> saveCompetition(@RequestBody
-                                                                  CompetitionRequestCreateDto competitionRequestCreateDto){
-        Competition competitionMapped = CompetitionDtoMapper.toCompetition(competitionRequestCreateDto);
+                                                                  CompetitionSaveDto competitionSaveDto){
+        Competition competitionMapped = CompetitionSaveDto.toCompetition(competitionSaveDto);
         Competition competitionSaved = competitionService.createCompetition(competitionMapped);
     return ResponseEntity.status(HttpStatus.CREATED)
-            .body(CompetitionDtoMapper.toCompetitionResponseDto(competitionSaved));
+            .body(CompetitionResponseDto.toCompetitionResponseDto(competitionSaved));
     }
 }

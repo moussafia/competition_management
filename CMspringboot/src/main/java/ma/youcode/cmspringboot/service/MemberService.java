@@ -8,6 +8,6 @@ public interface MemberService {
     Member createMember(Member member);
     public Member updateMember(Member member);
     public Member getMemberByNum(Member member);
-    Member searchMember(String keySearch);
+    public Page<Member> searchMember(String keySearch, Pageable pageable);
     Page<Member> getAllMember(Pageable pageable);
 }

@@ -1,9 +1,19 @@
 <section id="sideBar" class="active">
     <div class="logo">
-        <img src="../../../assets/logoCM.jpg" />
-        <h1>CM <sup>.ma</sup></h1>
+        <img src="../../../assets/image/logo.png" />
+        <h1>AFTAS <sup>.ma</sup></h1>
     </div>
     <div class="items">
+        <li>
+            <a href="#" class="flex items-center p-2 text-gray-400 rounded-lg dark:text-white hover:bg-gray-600 dark:hover:bg-gray-700 group">
+               <svg class="w-5 h-5 text-gray-400 transition duration-75 dark:text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                  <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+                  <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
+               </svg>
+               <span class="ml-3 ">Dashboard</span>
+            </a>
+         </li>
+
         <a href="#" class="a-sidbar-li">
             <li class="li-sidbar">
                 <button type="button" class="flex items-center p-2 w-full text-base font-normal rounded-lg transition duration-75 group " aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
@@ -13,17 +23,17 @@
                 </button>
                 <ul id="dropdown-pages" class="hidden py-2 space-y-2 bg-gray-800">
                     <li class="hover:bg-gray-600">
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">All competition</a>
+                        <a routerLink="/competitions" routerLinkActive="custom-active-link" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">All competition</a>
                     </li>
                     <li class="hover:bg-gray-600">
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">Create competition</a>
+                        <a  routerLink="/createCompetition" routerLinkActive="custom-active-link" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">Create competition</a>
                     </li>
                 </ul>
             </li>
         </a>
         <div class="a-sidbar-li">
             <li class="li-sidbar">
-                <button type="button" routerLink="/competitions"
+                <button type="button" 
                 class="flex items-center p-2 w-full text-base font-normal rounded-lg transition duration-75 group " aria-controls="memberId" data-collapse-toggle="memberId">
                     <svg class="flex-shrink-0 w-7 h-7 text-gray-400 transition duration-75 group-hover dark:text-gray-400 dark:group-hover:text-white"
                     viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
@@ -39,10 +49,10 @@
                 </button>
                 <ul id="memberId" class="hidden py-2 space-y-2 bg-gray-800">
                     <li class="hover:bg-gray-600">
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">All membres</a>
+                        <a routerLink="/allMember" routerLinkActive="custom-active-link" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">All membres</a>
                     </li>
                     <li class="hover:bg-gray-600">
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">Create member</a>
+                        <a routerLink="/createMember" routerLinkActive="custom-active-link" class="flex items-center p-2 pl-11 w-full text-base font-normal rounded-lg transition duration-75 group">Create member</a>
                     </li>
                 </ul>
             </li>

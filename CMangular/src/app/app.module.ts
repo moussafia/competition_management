@@ -7,10 +7,14 @@ import { SharedModule } from './shared/shared.module';
 import { CompetitionModule } from './competition/competition.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { PageErrorComponent } from './page-error/page-error.component';
+import { MemberModule } from './member/member.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +23,9 @@ import { RouterModule } from '@angular/router';
     SharedModule,
     CompetitionModule,
     HttpClientModule,
+    MemberModule,
+    ReactiveFormsModule,
+    FormsModule
 
   ],
   exports:[

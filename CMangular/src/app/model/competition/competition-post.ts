@@ -1,8 +1,8 @@
 export interface CompetitionPost {
     date:string,
-    starTime:string,
+    startDate:string,
     endTime:string,
-    numberOfParticipents:number,
+    numberOfParticipants:number,
     location:string,
     amount:number
 }

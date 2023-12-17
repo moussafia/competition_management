@@ -3,13 +3,14 @@ package ma.youcode.cmspringboot.service.serviceImpl;
 import ma.youcode.cmspringboot.model.domain.*;
 import ma.youcode.cmspringboot.repository.HuntingRepository;
 import ma.youcode.cmspringboot.service.*;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class HuntingServiceImpl implements HuntingService {
     private HuntingRepository huntingRepository;
     private FishService fishService;
@@ -30,65 +31,74 @@ public class HuntingServiceImpl implements HuntingService {
     }
 
     @Override
-    public Hunting insertHuntingForMemberInCompetition(Hunting hunting) {
-        validateDateCreateHunting(hunting);
-        processCheckWeightOfFish(hunting);
-        processCheckWeightOfFish(hunting);
-        Hunting huntingForSaving = processHuntingForFish(hunting);
-        hunting = huntingRepository.save(huntingForSaving);
-        InsertScoreForMemberInCompetition(hunting);
+    public Hunting insertHuntingForMemberInCompetition(Long fish_id, Integer average_weight,
+                                                       String competition_code, Integer member_num) {
+        Competition competition = competitionService.getCompetitionByCode(competition_code);
+        Fish fish = fishService.getFishById(fish_id);
+        Member member = memberService.getMemberByNum(member_num);
+        Ranking ranking = rankingService.findRankingByCompetitionAndMember(competition, member);
+        validateDateCreateHunting(competition);
+        processCheckWeightOfFish(average_weight,fish);
+        Hunting huntingForSaving = processHuntingForFish(member, competition, fish);
+        Hunting hunting = huntingRepository.save(huntingForSaving);
+        InsertScoreForMemberInCompetition(ranking, hunting);
         return hunting;
     }
 
     @Override
-    public Ranking InsertScoreForMemberInCompetition(Hunting hunting) {
-        Member member = hunting.getMember();
-        Competition competition = hunting.getCompetition();
-        Ranking ranking = rankingService.findRankingByCompetitionAndMember(competition, member);
-        Integer score = hunting.getNumberOfFish()*hunting.getFish().getLevel().getPoints();
+    public Ranking InsertScoreForMemberInCompetition(Ranking ranking, Hunting hunting) {
+        int score = hunting.getFish().getLevel().getPoints();
         ranking.setScore(ranking.getScore() + score);
-        return rankingService.createScoreForCompetition(member, competition);
+        return rankingService.createScoreForCompetition(ranking.getMember(), ranking.getCompetition());
     }
 
-    @Override
-    public Hunting updateHuntingForMemberInCompetition(Hunting hunting) {
-        Hunting huntingForUpdate = processUpdateHuntingForFish(hunting);
-        return huntingRepository.save(huntingForUpdate);
-    }
+//    @Override
+//    public Hunting updateHuntingForMemberInCompetition(Hunting hunting) {
+//        Hunting huntingForUpdate = processUpdateHuntingForFish(hunting);
+//        return huntingRepository.save(huntingForUpdate);
+//    }
 
-    private void processCheckWeightOfFish(Hunting hunting) {
-        Fish fish = fishService.getFishById(hunting.getFish());
-        if(fish.getAverageWeight() < hunting.getFish().getAverageWeight())
-            throw new IllegalStateException("Average weight " + hunting.getFish().getAverageWeight() + " for the fish named '"
-                    + hunting.getFish().getName() + "'  should be equals or superior than "
+    private void processCheckWeightOfFish(Integer average_weight,Fish fish) {
+        if(average_weight < fish.getAverageWeight())
+            throw new IllegalStateException("Average weight " + average_weight + " for the fish named '"
+                    + fish.getName() + "'  should be equals or superior than "
             + fish.getAverageWeight());
     }
     @Override
-    public Hunting processHuntingForFish(Hunting hunting) {
-        Optional<Hunting> huntingSaved = findByMemberAndFishAndCompetition(hunting);
-        Hunting huntingForSaving = new Hunting().builder()
-                .id(huntingSaved.get().getId())
-                .competition(huntingSaved.get().getCompetition())
-                .member(huntingSaved.get().getMember())
-                .fish(huntingSaved.get().getFish())
-                .build();
-        if (huntingSaved.isPresent())
-            huntingForSaving.setNumberOfFish(huntingSaved.get().getNumberOfFish() + 1);
-        else
-            huntingForSaving.setNumberOfFish(1);
+    public Hunting processHuntingForFish(Member member,Competition competition,Fish fish) {
+        Optional<Hunting> huntingSaved = huntingRepository
+                .findByMemberAndCompetitionAndFish(member, competition, fish);
+        Hunting huntingForSaving;
+        if (huntingSaved.isPresent()){
+            huntingForSaving = new Hunting().builder()
+                    .id(huntingSaved.get().getId())
+                    .competition(huntingSaved.get().getCompetition())
+                    .member(huntingSaved.get().getMember())
+                    .fish(huntingSaved.get().getFish())
+                    .numberOfFish(huntingSaved.get().getNumberOfFish() + 1)
+                    .build();
+        }
+        else{
+            huntingForSaving = new Hunting().builder()
+                    .competition(competition)
+                    .member(member)
+                    .fish(fish)
+                    .numberOfFish(1)
+                    .build();
+        }
         return huntingForSaving;
     }
-    @Override
-    public Hunting processUpdateHuntingForFish(Hunting hunting){
-        Optional<Hunting> huntingSaved = findByMemberAndFishAndCompetition(hunting);
-        return new Hunting().builder()
-                .id(huntingSaved.get().getId())
-                .competition(huntingSaved.get().getCompetition())
-                .member(huntingSaved.get().getMember())
-                .fish(huntingSaved.get().getFish())
-                .numberOfFish(hunting.getNumberOfFish())
-                .build();
-    }
+//    @Override
+//    public Hunting processUpdateHuntingForFish(Member member,Competition competition,Fish fish){
+//        Optional<Hunting> huntingSaved = huntingRepository.findByMemberAndCompetitionAndFish(member, competition, fish);
+//        return new Hunting().builder()
+//                .id(huntingSaved.get().getId())
+//                .competition(huntingSaved.get().getCompetition())
+//                .member(huntingSaved.get().getMember())
+//                .fish(huntingSaved.get().getFish())
+//                .numberOfFish(hunting.getNumberOfFish())
+//                .build();
+//    }
 
     @Override
     public void deleteMemberHunting(Hunting hunting) {
@@ -97,18 +107,10 @@ public class HuntingServiceImpl implements HuntingService {
     }
     @Override
     public Hunting isHuntingExist(Hunting hunting){
-        return findByMemberAndFishAndCompetition(hunting)
+        return huntingRepository.findByMemberAndCompetitionAndFish(hunting.getMember(), hunting.getCompetition(), hunting.getFish())
                 .orElseThrow(() -> new IllegalStateException("Hunting entry not found for Member: "
                         + hunting.getMember().getNum() + ", Competition: " + hunting.getCompetition().getCode()
                         + ", Fish ID: " + hunting.getFish().getId()));
-    }
-    @Override
-    public Optional<Hunting> findByMemberAndFishAndCompetition(Hunting hunting){
-//        Member member = memberService.getMemberByNum(hunting.getMember());
-//        Competition competition = competitionService.getCompetitionByCode(hunting.getCompetition().getCode());
-//        Fish fish = fishService.getFishById(hunting.getFish());
-//        return huntingRepository.findByMemberAndCompetitionAndFish(member, competition, fish);
-        return null;
     }
 
     @Override
@@ -117,8 +119,7 @@ public class HuntingServiceImpl implements HuntingService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "No hunting entries found for competition with code: " + competition.getCode()));
     }
-    public void validateDateCreateHunting(Hunting hunting){
-        Competition competition = hunting.getCompetition();
+    public void validateDateCreateHunting(Competition competition){
         if(LocalDate.now().isAfter(competition.getDate()) || LocalDate.now().isBefore(competition.getDate()))
             throw new IllegalStateException("you cannot insert hunting before or after date competition");
         if(LocalTime.now().isBefore(competition.getStartDate()) || LocalTime.now().isAfter(competition.getEndTime()))

@@ -65,8 +65,8 @@ public class RankingServiceImpl implements RankingService {
     public Ranking findRankingByCompetitionAndMember(Competition competition, Member member) {
         return  rankingRepository.findByCompetitionAndMember(competition, member)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Ranking not found for Member '" + member.getName() +
-                                "' and Competition '" + competition.getCode() + "'"));
+                        "Member with name '" + member.getName() +
+                                "' not inscribe in  '" + competition.getCode() + "'"));
     }
 
     @Override
@@ -90,6 +90,12 @@ public class RankingServiceImpl implements RankingService {
                     }
                     return hunting;
                 }).collect(Collectors.toList()));
+    }
+
+    @Override
+    public List<Ranking> getPodium(String competition_code) {
+        return rankingRepository.getPodium(competition_code)
+                .orElseThrow(()-> new IllegalStateException("no podium for this competition with code " + competition_code));
     }
 
     private Member validateMemberIfExist(Integer member_num) {

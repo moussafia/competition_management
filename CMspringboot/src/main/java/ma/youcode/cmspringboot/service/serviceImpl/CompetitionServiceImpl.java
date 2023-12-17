@@ -1,7 +1,6 @@
 package ma.youcode.cmspringboot.service.serviceImpl;
 
 import ma.youcode.cmspringboot.model.domain.Competition;
-import ma.youcode.cmspringboot.model.domain.CompetitionStatus;
 import ma.youcode.cmspringboot.repository.CompetitionRepository;
 import ma.youcode.cmspringboot.service.CompetitionService;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Service
 @Transactional
@@ -27,7 +25,6 @@ public class CompetitionServiceImpl implements CompetitionService {
         validateDateCompetition(competition);
         validateDateAlreadyExistForCreate(competition);
         competition.setCode(generateCode(competition));
-        competition.setCompetitionStatus(CompetitionStatus.PENDING);
         return this.competitionRepository.save(competition);
     }
 

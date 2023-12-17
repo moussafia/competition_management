@@ -42,4 +42,16 @@ public class RankingController {
                 .body(rankingResponseDtoList);
     }
 
+    @GetMapping("Rank/podium/{competition_code}")
+    public ResponseEntity<List<RankingResponseDto>> getPodium(@PathVariable("competition_code")
+                                                              @NotNull String competition_code){
+        List<RankingResponseDto> rankingResponseDtoList = new ArrayList<>();
+        rankingService.getPodium(competition_code)
+                .forEach(ranking -> {
+                    rankingResponseDtoList
+                            .add(RankingResponseDto.toRankingResponseDto(ranking));
+                });
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(rankingResponseDtoList);
+    }
 }

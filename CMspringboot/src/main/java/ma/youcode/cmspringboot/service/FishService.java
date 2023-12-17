@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface FishService {
     Fish createFish(Fish fish);
     public Fish updateFish(Fish fish);
-    public Fish getFishById(Fish fish);
+    public Fish getFishById(Long fishId);
     Fish findFishByName(String fishName);
     Page<Fish> getAllFish(Pageable pageable);
 }

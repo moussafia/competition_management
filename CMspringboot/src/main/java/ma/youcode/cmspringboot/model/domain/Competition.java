@@ -30,9 +30,6 @@ public class Competition {
     private String location;
     @NotNull(message = "amount shouldn't be null")
     private Float amount;
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private CompetitionStatus competitionStatus;
     @OneToMany(mappedBy = "competition")
     private Set<Ranking> ranking;
     @OneToMany(mappedBy = "competition")

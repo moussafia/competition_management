@@ -16,4 +16,11 @@ public ResponseEntity<Map<String, String>> handleGenericException(Throwable ex) 
     error.put("message", ex.getMessage());
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
 }
+@ExceptionHandler(IllegalStateException.class)
+public ResponseEntity<Map<String, String>> handelIllegalState(IllegalStateException il){
+    Map<String, String> error = new HashMap<>();
+    error.put("error","Internal Server Error");
+    error.put("message",il.getMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+}
 }

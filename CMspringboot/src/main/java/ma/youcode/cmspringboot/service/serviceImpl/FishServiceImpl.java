@@ -28,9 +28,9 @@ public class FishServiceImpl implements FishService {
         return this.fishRepository.save(fish);
     }
     @Override
-    public Fish getFishById(Fish fish) {
-        return fishRepository.findById(fish.getId())
-                .orElseThrow(() -> new IllegalStateException("Fish with ID " + fish.getId() + " not found"));
+    public Fish getFishById(Long fishId) {
+        return fishRepository.findById(fishId)
+                .orElseThrow(() -> new IllegalStateException("Fish with ID " + fishId + " not found"));
     }
 
     @Override

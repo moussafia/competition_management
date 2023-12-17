@@ -14,6 +14,5 @@ destroyComponent:boolean=false
 onDestroyComponet():void{
 this.destroyComponent = true;
 this.sweatEventEmitter.emit(this.destroyComponent)
-console.log("dfkjbjkg");
 }
 }

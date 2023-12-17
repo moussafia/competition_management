@@ -6,7 +6,7 @@
     <ng-container *ngSwitchCase="dataState.LOADED">
         <div class="card grid grid-cols-3 gap-4">
                 <app-card [competitionList]="competition"
-                *ngFor="let competition of result.dataCompetition"></app-card>
+                *ngFor="let competition of result.data"></app-card>
         </div>
     </ng-container>
     <ng-container *ngSwitchCase="dataState.LOADING">
@@ -25,7 +25,7 @@
             <span class="font-medium">error alert!</span> {{result.error}}
           </div>
     </ng-container>
-    <div class="flex justify-center mb-4" style="margin-top:30px" *ngIf="result.dataCompetition"> 
+    <div class="flex justify-center mb-4" style="margin-top:30px" *ngIf="result.data"> 
         <app-pagination 
         [pageTotal] = "pageTotal" 
         [currentPage]="currentPage"

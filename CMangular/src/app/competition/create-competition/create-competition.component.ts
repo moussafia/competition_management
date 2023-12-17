@@ -37,7 +37,7 @@ if(this.competitionFormGroupe?.invalid) return;
 this.competitionService.post(this.competitionFormGroupe?.value).subscribe({
   next: data => {
     if(data.body)
-    this.competitionResult = ({dataState: Datastate.LOADED, dataCompetition: data.body})
+    this.competitionResult = ({dataState: Datastate.LOADED, data: data.body})
   console.log(this.competitionResult);
   },
   error:err => {

@@ -23,7 +23,7 @@ this.competitionService.get(page).pipe(
   map(response => {
     let pageTotalHeader = response.headers.get('X-Total-Page');
     if(pageTotalHeader) this.pageTotal = parseInt(pageTotalHeader);
-    return ({ dataState: this.dataState.LOADED, dataCompetition: response.body || []})
+    return ({ dataState: this.dataState.LOADED, data: response.body || []})
   }),
   startWith({ dataState:Datastate.LOADING}),
   catchError(err =>of({ dataState: this.dataState.LOADED, error: err.error}))

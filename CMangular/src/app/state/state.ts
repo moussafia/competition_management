@@ -6,6 +6,6 @@ export enum StateCompetition{
 }
 export interface  State<T>{
     dataState: Datastate,
-    dataCompetition?: T,
+    data?: T,
     error?: string
 }

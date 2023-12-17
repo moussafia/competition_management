@@ -104,10 +104,11 @@ public class HuntingServiceImpl implements HuntingService {
     }
     @Override
     public Optional<Hunting> findByMemberAndFishAndCompetition(Hunting hunting){
-        Member member = memberService.getMemberByNum(hunting.getMember());
-        Competition competition = competitionService.getCompetitionByCode(hunting.getCompetition().getCode());
-        Fish fish = fishService.getFishById(hunting.getFish());
-        return huntingRepository.findByMemberAndCompetitionAndFish(member, competition, fish);
+//        Member member = memberService.getMemberByNum(hunting.getMember());
+//        Competition competition = competitionService.getCompetitionByCode(hunting.getCompetition().getCode());
+//        Fish fish = fishService.getFishById(hunting.getFish());
+//        return huntingRepository.findByMemberAndCompetitionAndFish(member, competition, fish);
+        return null;
     }
 
     @Override

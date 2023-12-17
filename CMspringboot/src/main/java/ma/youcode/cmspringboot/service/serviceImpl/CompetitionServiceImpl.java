@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Service
 @Transactional
@@ -51,6 +52,15 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Page<Competition> getAllCompetition(Pageable pageable) {
 
         return competitionRepository.findAll(pageable);
+    }
+    @Override
+    public Page<Competition> filterCompetitionByDate(boolean isClosed,Pageable pageable){
+        if(isClosed)
+            return competitionRepository
+                    .filterCompetitionClosed(LocalDate.now(),pageable);
+        else
+            return competitionRepository
+                    .filterCompetitionPending(LocalDate.now(),pageable);
     }
 
     String generateCode(Competition competition){

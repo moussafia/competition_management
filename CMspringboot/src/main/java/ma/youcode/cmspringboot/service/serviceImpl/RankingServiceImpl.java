@@ -11,6 +11,7 @@ import ma.youcode.cmspringboot.service.RankingService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -33,19 +34,21 @@ public class RankingServiceImpl implements RankingService {
     }
 
     @Override
-    public Ranking InscribeMemberToCompetition(Ranking ranking) {
-        Member member = validateMemberIfExist(ranking);
-        Competition competition = validateCompetitionIfExist(ranking);
+    public Ranking InscribeMemberToCompetition(Integer num_member, String competition_code) {
+        Member member = validateMemberIfExist(num_member);
+        Competition competition = validateCompetitionIfExist(competition_code);
         validateIfMemberAlreadyInscribeInCompetition(member, competition);
         validateAvailabilityDateForInscribe(competition);
-        ranking.setMember(member); ranking.setCompetition(competition);
+        Ranking ranking = new Ranking().builder()
+                .member(member)
+                .competition(competition).build();
         return rankingRepository.save(ranking);
     }
 
     @Override
-    public void removeMemberForCompetition(Ranking ranking) {
-        Member member = validateMemberIfExist(ranking);
-        Competition competition = validateCompetitionIfExist(ranking);
+    public void removeMemberForCompetition(Integer member_num, String competition_code) {
+        Member member = validateMemberIfExist(member_num);
+        Competition competition = validateCompetitionIfExist(competition_code);
         Ranking rankingForSaving = findRankingByCompetitionAndMember(competition, member);
         rankingRepository.delete(rankingForSaving);
     }
@@ -57,24 +60,6 @@ public class RankingServiceImpl implements RankingService {
                         "in this competition " + competition.getCode()));
         return rankingRepository.save(ranking);
     }
-
-//    @Transactional
-//    @Override
-//    public Ranking createScoreForCompetition(String competitionCode) {
-//        Competition competition = competitionService.getCompetitionByCode(competitionCode);
-//        Set<Hunting> huntingList = competition.getHunting();
-//        huntingList.forEach(hl -> {
-//            Ranking ranking = rankingRepository.findByCompetitionAndMember(competition , hl.getMember())
-//                    .orElseThrow(() -> new IllegalStateException());
-//            Integer score = hl.getFish().getLevel().getPoints()*hl.getNumberOfFish();
-//            ranking.setRanke(ranking.getRanke() + score);
-//            rankingRepository.save(ranking);
-//        });
-//
-//
-//
-//        return null;
-//    }
 
     @Override
     public Ranking findRankingByCompetitionAndMember(Competition competition, Member member) {
@@ -89,22 +74,31 @@ public class RankingServiceImpl implements RankingService {
         Competition competition = competitionService.getCompetitionByCode(competitionCode);
         Set<Ranking> rankings = competition.getRanking();
         final Integer[] index = {0};
+        final Integer[] score= {0};
         return rankingRepository.saveAll(rankings.stream()
-                .sorted(Comparator.comparing(Ranking::getScore))
-                .map( hunting -> {
-                    index[0]++;
-                    hunting.setRank(index[0]);
+                .sorted(Comparator.comparing(Ranking::getScore).reversed())
+                .map(hunting -> {
+                    if(hunting.getScore() != 0 && hunting.getScore() != score[0]){
+                        index[0]++;
+                        hunting.setRank(index[0]);
+                        score[0]=hunting.getScore();
+                    }else if(hunting.getScore() == score[0]){
+                            if(index[0] != 0) hunting.setRank(index[0]);
+                            else hunting.setRank(competition.getNumberOfParticipants());
+                    }else{
+                        hunting.setRank(competition.getNumberOfParticipants());
+                    }
                     return hunting;
                 }).collect(Collectors.toList()));
     }
 
-    private Member validateMemberIfExist(Ranking ranking) {
+    private Member validateMemberIfExist(Integer member_num) {
 
-        return memberService.getMemberByNum(ranking.getMember());
+        return memberService.getMemberByNum(member_num);
     }
 
-    private Competition validateCompetitionIfExist(Ranking ranking) {
-        return competitionService.getCompetitionByCode(ranking.getCompetition().getCode());
+    private Competition validateCompetitionIfExist(String competition_code) {
+        return competitionService.getCompetitionByCode(competition_code);
     }
 
 
@@ -116,10 +110,13 @@ public class RankingServiceImpl implements RankingService {
 
     }
     void validateAvailabilityDateForInscribe(Competition competition) {
-        long hoursUntilCompetition = ChronoUnit.HOURS.between(LocalDate.now(), competition.getDate());
-        if(hoursUntilCompetition <= 24){
+        long hoursUntilCompetition = ChronoUnit.DAYS.between(LocalDate.now(), competition.getDate());
+        if(hoursUntilCompetition < 0)
             throw new IllegalStateException("Cannot inscribe for this competition with a date '" +
-                    competition.getDate() + "' less than 24 hours from now. Remaining time: " + hoursUntilCompetition + " hours.");
+                    competition.getDate() + ", already played");
+        if(hoursUntilCompetition >= 0 && hoursUntilCompetition <= 1){
+            throw new IllegalStateException("Cannot inscribe for this competition with a date '" +
+                    competition.getDate() + "' less than 24 hours from now. Remaining time: " + hoursUntilCompetition + " day.");
         }
     }
 }

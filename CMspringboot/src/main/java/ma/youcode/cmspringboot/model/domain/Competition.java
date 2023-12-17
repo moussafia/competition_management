@@ -24,7 +24,7 @@ public class Competition {
     @NotNull(message = "end date shouldn't be null")
     private LocalTime endTime;
     @NotNull(message = "number of participants shouldn't be null")
-    private Integer numberOfParticipants;
+    private int numberOfParticipants;
     @Size(min = 3, max = 200, message = "length is too low or too height")
     @NotNull(message = "location shouldn't be null")
     private String location;

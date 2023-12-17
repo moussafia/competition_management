@@ -1,4 +1,4 @@
-package ma.youcode.cmspringboot.model.dto.competitionDto;
+package ma.youcode.cmspringboot.model.dto.competitionDto.competitonResponseDto;
 
 import ma.youcode.cmspringboot.model.domain.Competition;
 

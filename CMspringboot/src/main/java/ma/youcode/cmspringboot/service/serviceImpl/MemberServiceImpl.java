@@ -31,9 +31,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getMemberByNum(Member member) {
-        return memberRepository.findByNum(member.getNum())
-                .orElseThrow(() -> new IllegalStateException("Member with number " + member.getNum() + " not found"));
+    public Member getMemberByNum(Integer num_member) {
+        return memberRepository.findByNum(num_member)
+                .orElseThrow(() -> new IllegalStateException("Member with number " + num_member + " not found"));
     }
 
     @Override

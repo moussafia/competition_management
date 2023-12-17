@@ -9,4 +9,5 @@ public interface CompetitionService {
     public Competition getCompetitionByCode(String competition);
     public Competition updateCompetition(Competition competition);
     public Page<Competition> getAllCompetition(Pageable pageable);
+    public Page<Competition> filterCompetitionByDate(boolean isClosed,Pageable pageable);
 }

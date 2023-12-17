@@ -20,7 +20,7 @@ ngOnInit(): void {
 readonly dataState = Datastate
 getAllMembers(page: number):void{
   this.memberService.get(page).pipe(
-    map(response=> { console.log(response.body);
+    map(response=> {
         let pageTotalHeader = response.headers.get('X-Total-Page');
         if(pageTotalHeader) this.pageTotal=  parseInt(pageTotalHeader);
         return ({ dataState: this.dataState.LOADED, data: response.body || []})

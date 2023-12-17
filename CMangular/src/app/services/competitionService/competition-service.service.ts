@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CompetitionList } from '../../model/competition/competition-list';
+import { CompetitionList, CompetitionListWithRank } from '../../model/competition/competition-list';
 import { CompetitionPost } from '../../model/competition/competition-post';
 
 @Injectable({
@@ -21,5 +21,11 @@ export class CompetitionServiceService {
         observe: 'response'
       });
   }
+  
+  getDetailsCompetitionOfDateNow():Observable<HttpResponse<CompetitionListWithRank>>{
+    return this.http.get<CompetitionListWithRank>(`${this.host}competition/competition/dateNow`,{
+      observe: 'response'
+    });
+}
 
 }

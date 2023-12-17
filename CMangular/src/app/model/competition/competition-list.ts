@@ -6,6 +6,15 @@ export interface CompetitionList {
     numberOfParticipants: number,
     location: string,
     amount: number,
-    ranking?:any
 }
+export interface CompetitionListWithRank {
+    code:string,
+    date:string,
+    startDate:string,
+    endTime:string,
+    numberOfParticipants: number,
+    location: string,
+    amount: number,
+    rankingList?:any
 
+}

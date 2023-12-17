@@ -32,12 +32,9 @@ createMember(){
 this.memberService.post(this.memberFormGroupe?.value).subscribe({
   next: data => {
     if(data.body)
-    this.memberResult = ({dataState: Datastate.LOADED, data: data.body})
-  console.log(this.memberResult);
-  },
+    this.memberResult = ({dataState: Datastate.LOADED, data: data.body})  },
   error:err => {
     this.memberResult=({dataState: Datastate.ERROR, error: err.error.message})
-    console.log(this.memberResult);
 
 }})
 }

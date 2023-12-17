@@ -16,6 +16,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +78,12 @@ public class CompetitionController {
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(CompetitionResponseDetailsDto
                         .toCompetitionResponseDetailsDto(competitionService.getCompetitionByCode(competition_Code)));
+    }
+    @GetMapping("/competition/dateNow")
+    public ResponseEntity<CompetitionResponseDetailsDto> getCompetitionByCode(){
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(CompetitionResponseDetailsDto
+                        .toCompetitionResponseDetailsDto(competitionService.getCompetitionByDate())
+                );
     }
 }

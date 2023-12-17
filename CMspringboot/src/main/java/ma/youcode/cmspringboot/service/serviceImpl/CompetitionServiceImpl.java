@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Service
 @Transactional
@@ -32,6 +33,12 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Competition getCompetitionByCode(String competitionCode) {
         return competitionRepository.findByCode(competitionCode)
                 .orElseThrow(() -> new IllegalStateException("Competition with code " + competitionCode + " not found"));
+
+    }
+    @Override
+    public Competition getCompetitionByDate() {
+        return competitionRepository.findByDate(LocalDate.now())
+                .orElseThrow(() -> new IllegalStateException("no competition for this day"));
 
     }
 

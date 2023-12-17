@@ -10,11 +10,13 @@ import { RouterModule } from '@angular/router';
 import { PageErrorComponent } from './page-error/page-error.component';
 import { MemberModule } from './member/member.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageErrorComponent
+    PageErrorComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

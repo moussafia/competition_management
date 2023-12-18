@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RankingServiceImplTest {
-    @InjectMocks
+    @Mock
     private RankingServiceImpl rankingService;
 
     @Mock
@@ -45,12 +45,12 @@ class RankingServiceImplTest {
     void createRankingForCompetition() {
         String competitionCode = "yo-23-12-10";
         Competition competitionTest1 = createFakeScore(1,2,3);
-        when(competitionService.getCompetitionByCode(competitionCode)).thenReturn(competitionTest1);
-        List<Ranking> result = rankingService.createRankingForCompetition(competitionCode);
-
-//        Competition competitionTest2 = createFakeScore(1,1,4);
-//        Competition competitionTest3 = createFakeScore(0,0,0);
-        reset(competitionService, rankingRepository);
+        when(competitionService.getCompetitionByCode(competitionCode))
+                .thenReturn(competitionTest1);
+        List<Ranking> rankings = competitionTest1.getRanking().stream().toList();
+        when(rankingService.createRankingForCompetition(competitionCode))
+                .thenReturn(rankings);
+        assertEquals(rankingService.createRankingForCompetition(competitionCode),rankings);
 
     }
     public Competition createFakeScore(Integer ScoreMemberOne, Integer scoreMemberTwo, Integer scoreMemberThree){

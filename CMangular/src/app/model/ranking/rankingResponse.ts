@@ -4,5 +4,5 @@ export interface RankingResponse{
     competitionResponseDto: CompetitionResponseDto ,
     memberResponseDto: MemberResponseDto,
     rank: number,
-    scor: number
+    score: number
 }

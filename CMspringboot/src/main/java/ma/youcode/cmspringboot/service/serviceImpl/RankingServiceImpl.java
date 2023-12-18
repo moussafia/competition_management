@@ -83,21 +83,22 @@ public class RankingServiceImpl implements RankingService {
         Set<Ranking> rankings = competition.getRanking();
         final Integer[] index = {0};
         final Integer[] score= {0};
-        return rankingRepository.saveAll(rankings.stream()
+        List<Ranking> result = rankings.stream()
                 .sorted(Comparator.comparing(Ranking::getScore).reversed())
                 .map(hunting -> {
-                    if(hunting.getScore() != 0 && hunting.getScore() != score[0]){
+                    if (hunting.getScore() != 0 && hunting.getScore() != score[0]) {
                         index[0]++;
                         hunting.setRank(index[0]);
-                        score[0]=hunting.getScore();
-                    }else if(hunting.getScore() == score[0]){
-                            if(index[0] != 0) hunting.setRank(index[0]);
-                            else hunting.setRank(competition.getNumberOfParticipants());
-                    }else{
+                        score[0] = hunting.getScore();
+                    } else if (hunting.getScore() == score[0]) {
+                        if (index[0] != 0) hunting.setRank(index[0]);
+                        else hunting.setRank(competition.getNumberOfParticipants());
+                    } else {
                         hunting.setRank(competition.getNumberOfParticipants());
                     }
                     return hunting;
-                }).collect(Collectors.toList()));
+                }).collect(Collectors.toList());
+        return rankingRepository.saveAll(result);
     }
 
     @Override

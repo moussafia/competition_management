@@ -24,6 +24,7 @@ previousPage(){
   this.eventEmitter.emit(--this.currentPage)
   if(this.currentPage <= this.arrayPagination[this.indexPage][0]){
     this.arrayOfPages = [...this.arrayPagination[--this.indexPage]];
+
   }
 }
 nextPage(){
@@ -31,6 +32,7 @@ nextPage(){
   let lengthArrayPage = this.arrayPagination[this.indexPage].length;
   if(this.currentPage >= this.arrayPagination[this.indexPage][lengthArrayPage - 1]){
     this.arrayOfPages = [...this.arrayPagination[++this.indexPage]];
+
   }
 }
 onChangeCurrentPage(page: number){

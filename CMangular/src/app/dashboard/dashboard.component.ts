@@ -10,6 +10,7 @@ import { FishService } from '../services/fish/fish.service';
 import { HuntingResponse } from '../model/hunting/huntingResponse';
 import { HuntingService } from '../services/hunting/hunting.service';
 import { RankingService } from '../services/ranking/ranking.service';
+import { RankingResponse } from '../model/ranking/rankingResponse';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +29,9 @@ calculRankControl?:FormGroup;
 huntingPost?:Hunting;
 huntingResponse?:HuntingResponse;
 fishList?:Fish[];
+calculRankPodiumControl?:FormGroup;
 stateHunting?:State<HuntingResponse>;
+podiumDataResponse?:RankingResponse[];
 constructor(private competitionService: CompetitionServiceService,
   private fishService:FishService,
   private formBuilder:FormBuilder,
@@ -46,6 +49,10 @@ ngOnInit(): void {
     this.calculRankControl= this.formBuilder.group({
       competition_code:[this.competitionCode]
     })
+    this.calculRankPodiumControl= this.formBuilder.group({
+      competition_code:[this.competitionCode]
+    })
+    this.generatePodium();
 }
 readonly dataState = Datastate;
 getcompetitionOfDayNow(){
@@ -86,7 +93,19 @@ calculRank(){
 if(this.calculRankControl?.invalid) return;
 this.rankService.get(this.calculRankControl?.value.competition_code).subscribe({
   next:data=>{
-    console.log(data.body);
+    this.getcompetitionOfDayNow();
+  },
+  error:err=>{
+    console.log(err.error.message);
+  }
+})
+}
+generatePodium(){
+if(this.calculRankPodiumControl?.invalid) return;
+this.rankService.getPodium(this.calculRankPodiumControl?.value.competition_code).subscribe({
+  next:data=>{
+    this.podiumDataResponse = data.body || undefined;
+    console.log(this.podiumDataResponse);
     this.getcompetitionOfDayNow();
   },
   error:err=>{

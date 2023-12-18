@@ -1,7 +1,7 @@
 <section class="items-center lg:flex lg:h-screen font-poppins dark:bg-gray-800 ">
     <div class="justify-center flex-1 max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
         <div class="overflow-x-auto rounded shadow dark:bg-gray-900 bg-white">
-            <app-search></app-search>
+            <app-search (memberSearchEvent)="onChangeDataMember($event)"></app-search>
             <table class="w-full table-auto">
                 <thead class="bg-lightGray-50">
                     <tr class="text-xs text-left text-gray-500 border-b border-gray-200 dark:border-gray-800">

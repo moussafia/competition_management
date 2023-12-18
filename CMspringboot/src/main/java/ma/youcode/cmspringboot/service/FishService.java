@@ -4,6 +4,7 @@ import ma.youcode.cmspringboot.model.domain.Fish;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface FishService {
@@ -11,5 +12,5 @@ public interface FishService {
     public Fish updateFish(Fish fish);
     public Fish getFishById(Long fishId);
     Fish findFishByName(String fishName);
-    Page<Fish> getAllFish(Pageable pageable);
+    List<Fish> getAllFish();
 }

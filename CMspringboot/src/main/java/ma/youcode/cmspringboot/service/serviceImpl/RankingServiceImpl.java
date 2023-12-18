@@ -39,10 +39,18 @@ public class RankingServiceImpl implements RankingService {
         Competition competition = validateCompetitionIfExist(competition_code);
         validateIfMemberAlreadyInscribeInCompetition(member, competition);
         validateAvailabilityDateForInscribe(competition);
+        validateAvailablePlace(competition);
         Ranking ranking = new Ranking().builder()
                 .member(member)
                 .competition(competition).build();
         return rankingRepository.save(ranking);
+    }
+
+    private void validateAvailablePlace(Competition competition) {
+        Integer numberOfPlace = competition.getNumberOfParticipants();
+        Integer countAvailablePlace = rankingRepository.countAvailablePlace(competition);
+        if(numberOfPlace < countAvailablePlace)
+            throw new IllegalStateException("number of place is not available");
     }
 
     @Override

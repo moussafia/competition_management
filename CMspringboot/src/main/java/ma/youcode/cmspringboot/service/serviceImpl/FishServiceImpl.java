@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FishServiceImpl implements FishService {
     private FishRepository fishRepository;
@@ -40,9 +42,9 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public Page<Fish> getAllFish(Pageable pageable) {
+    public List<Fish> getAllFish() {
 
-        return fishRepository.findAll(pageable);
+        return fishRepository.findAll();
     }
     void validateIfAlreadyExistForCreate(Fish fish){
         fishRepository.findByName(fish.getName()).ifPresent(f-> {

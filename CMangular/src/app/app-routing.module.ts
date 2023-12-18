@@ -12,6 +12,7 @@ const routes: Routes = [
   {path:"createMember", component: CreateMemberComponent},
   {path:"allMember", component: MemberListComponent},
   {path:"dashboard", component: DashboardComponent},
+  {path:"", redirectTo:"/dashboard", pathMatch:"full"},
 
 
 ];

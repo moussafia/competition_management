@@ -1,11 +1,14 @@
 package ma.youcode.cmspringboot.seeder.dbSeed;
 
 import ma.youcode.cmspringboot.model.domain.*;
+import ma.youcode.cmspringboot.repository.CompetitionRepository;
 import ma.youcode.cmspringboot.seeder.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +20,7 @@ public class DbSeed {
     private MemberSeeder memberSeeder;
     private RankingSeeder rankingSeeder;
 
-    public DbSeed(LevelSeeder levelSeeder, FishSeeder fishSeeder,
-                  CompetitionSeeder competitionSeeder, MemberSeeder memberSeeder,
-                  RankingSeeder rankingSeeder) {
+    public DbSeed(LevelSeeder levelSeeder, FishSeeder fishSeeder, CompetitionSeeder competitionSeeder, MemberSeeder memberSeeder, RankingSeeder rankingSeeder) {
         this.levelSeeder = levelSeeder;
         this.fishSeeder = fishSeeder;
         this.competitionSeeder = competitionSeeder;
@@ -38,6 +39,7 @@ public class DbSeed {
             competitionList.forEach(cl->{
                 rankingList.add(rankingSeeder.createRankingSeeder(members, cl));
             });
+         competitionSeeder.createOne();
 
         };
     }

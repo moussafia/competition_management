@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 @Component
 public class CompetitionSeederImpl implements CompetitionSeeder {
@@ -18,7 +19,17 @@ public class CompetitionSeederImpl implements CompetitionSeeder {
     public CompetitionSeederImpl(CompetitionRepository competitionRepository) {
         this.competitionRepository = competitionRepository;
     }
-
+@Override
+    public Competition createOne(){
+        Competition competition = new Competition().builder().code("hofro12")
+                .numberOfParticipants(13)
+                .endTime(LocalTime.of(18,0))
+                .startDate(LocalTime.of(8,0))
+                .date(LocalDate.of(2023,12,18))
+                .amount(13F)
+                .location("youssoufia").build();
+        return this.competitionRepository.save(competition);
+    }
     @Override
     public List<Competition> createListCompetition() {
         List<Competition> competitionList = new ArrayList<>();
